@@ -83,7 +83,7 @@ public class BarcodeDetectorAsyncTask extends android.os.AsyncTask<Void, Void, V
               public void onSuccess(List<FirebaseVisionBarcode> barcodes) {
                 if (barcodes.size() > 0) {
                   WritableArray serializedBarcodes = serializeEventData(barcodes);
-                  mDelegate.onBarcodesDetected(serializedBarcodes);
+                  mDelegate.onBarcodesDetected(serializedBarcodes, mWidth, mHeight, mImageData);
                 }
                 mDelegate.onBarcodeDetectingTaskCompleted();
               }
