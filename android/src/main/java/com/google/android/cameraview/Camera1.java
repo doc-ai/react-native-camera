@@ -853,6 +853,16 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
     }
 
     @Override
+    void pauseRecording() {
+        pauseMediaRecorder();
+    }
+
+    @Override
+    void resumeRecording() {
+        resumeMediaRecorder();
+    }
+
+    @Override
     int getCameraOrientation() {
         return mCameraInfo.orientation;
     }
@@ -1345,6 +1355,8 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
             final List<String> modes = mCameraParameters.getSupportedFocusModes();
             if (autoFocus && modes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
                 mCameraParameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            } else if (mIsScanning && modes.contains(Camera.Parameters.FOCUS_MODE_MACRO)) {
+                mCameraParameters.setFocusMode(Camera.Parameters.FOCUS_MODE_MACRO);
             } else if (modes.contains(Camera.Parameters.FOCUS_MODE_FIXED)) {
                 mCameraParameters.setFocusMode(Camera.Parameters.FOCUS_MODE_FIXED);
             } else if (modes.contains(Camera.Parameters.FOCUS_MODE_INFINITY)) {
@@ -1566,6 +1578,18 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
 
             mCallback.onVideoRecorded(mVideoPath, mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation, deviceOrientation);
             mVideoPath = null;
+        }
+    }
+
+    private void pauseMediaRecorder() {
+        if (Build.VERSION.SDK_INT >= 24) {
+            mMediaRecorder.pause();
+        }
+    }
+
+    private void resumeMediaRecorder() {
+        if (Build.VERSION.SDK_INT >= 24) {
+            mMediaRecorder.resume();
         }
     }
 

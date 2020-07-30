@@ -364,6 +364,7 @@ export default class Camera extends React.Component<PropsType, StateType> {
     GoogleVisionBarcodeDetection: CameraManager.GoogleVisionBarcodeDetection,
     FaceDetection: CameraManager.FaceDetection,
     CameraStatus,
+    CaptureTarget: CameraManager.CaptureTarget,
     RecordAudioPermissionStatus: RecordAudioPermissionStatusEnum,
     VideoStabilization: CameraManager.VideoStabilization,
     Orientation: {
@@ -621,6 +622,14 @@ export default class Camera extends React.Component<PropsType, StateType> {
 
   stopRecording() {
     CameraManager.stopRecording(this._cameraHandle);
+  }
+
+  pauseRecording() {
+    CameraManager.pauseRecording(this._cameraHandle);
+  }
+
+  resumeRecording() {
+    CameraManager.resumeRecording(this._cameraHandle);
   }
 
   pausePreview() {
