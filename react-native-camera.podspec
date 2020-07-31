@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
 
   s.requires_arc   = true
   s.platform       = :ios, '9.0'
+  s.static_framework = true 
 
   s.subspec "RCT" do |ss|
     ss.source_files = "ios/RCT/**/*.{h,m}"
